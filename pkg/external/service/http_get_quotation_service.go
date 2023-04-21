@@ -27,8 +27,9 @@ func GetDollarQuotation(currency string) (*dto.QuotationResponseDTO, error) {
 	}
 
 	response, err := client.Do(request)
+	log.Printf("Request done with status %v", response.StatusCode)
 
-	if err != nil {
+	if err != nil || response.StatusCode != http.StatusOK {
 		log.Fatalf("Could not execute http request, error: %v", err)
 		return nil, err
 	}
